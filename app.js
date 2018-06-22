@@ -120,6 +120,16 @@ io.on('connection', function(socket){
 
       socket.leave(room.name)
   })
+
+  socket.on('draw', function(data, ack) {
+      let lastPoint = JSON.parse(data.lastPoint)
+      let newPoint = JSON.parse(data.newPoint)
+      let room = JSON.parse(data.room)
+
+      socket.broadcast.to(room.name).emit('update draw', [lastPoint, newPoint])
+
+  })
+
 });
 
 function joinRoom(socket, user, room) {
