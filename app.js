@@ -127,7 +127,12 @@ io.on('connection', function(socket){
       let room = JSON.parse(data.room)
 
       socket.broadcast.to(room.name).emit('update draw', [lastPoint, newPoint])
+  })
 
+  socket.on('clear draw', function(data, ack) {
+      let room = JSON.parse(data.room)
+
+      socket.broadcast.to(room.name).emit('clear draw')
   })
 
 });
